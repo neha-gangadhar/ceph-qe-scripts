@@ -338,6 +338,14 @@ def test_exec(config):
                             raise TestExecError(
                                 "Command is throwing error while running bucket sync run"
                             )
+
+                    if config.bucket_sync_status:
+                        out = utils.bucket_sync_status(bucket.name)
+                        if out is False:
+                            log.info(
+                                "Bucket sync is not caught up with source."
+                            )
+
                     if config.bucket_sync_crash:
                         is_primary = utils.is_cluster_primary()
                         if is_primary is False:
